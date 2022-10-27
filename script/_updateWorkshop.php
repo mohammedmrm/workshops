@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-error_reporting(0);
+//error_reporting(0);
 header('Content-Type: application/json');
 require_once("dbconnection.php");
 require_once("_crpt.php");
@@ -133,26 +133,28 @@ try {
       mkdir("../img/", 0700);
       $destination = "../img/" . $id . '.' . end((explode(".", $sig1["name"])));
       $sig1Path = $id . '.' . end((explode(".", $sig1["name"])));
-      move_uploaded_file($sig1["tmp_name"], $destination);
+      $up[] = move_uploaded_file($sig1["tmp_name"], $destination);
       $sql = "update workshops set sig1=? where id=?";
       unlink("../img/" . $workshop['sig1']);
       setData($con, $sql, [$sig1Path, $workshopId]);
     }
     if ($sig2['size'] != 0) {
       $id = uniqid();
-      $destination = "../img/" . $id . '.' . end((explode(".", $sig1["name"])));
+      $destination = "../img/" . $id . '.' . end((explode(".", $sig2["name"])));
       $sig2Path = $id . '.' . end((explode(".", $sig2["name"])));
-      move_uploaded_file($sig2["tmp_name"], $destination);
+      $up[] = move_uploaded_file($sig2["tmp_name"], $destination);
+      $sql = "update workshops set sig2=? where id=?";
       unlink("../img/" . $workshop['sig2']);
       setData($con, $sql, [$sig2Path, $workshopId]);
     }
     if ($cer_bg['size'] != 0) {
       $id = uniqid();
-      $destination = "../img/" . $id . '.' . end((explode(".", $sig1["name"])));
+      $destination = "../img/" . $id . '.' . end((explode(".", $cer_bg["name"])));
       $cer_bgPath = $id . '.' . end((explode(".", $cer_bg["name"])));
-      move_uploaded_file($cer_bg["tmp_name"], $destination);
+      $up[] = move_uploaded_file($cer_bg["tmp_name"], $destination);
       unlink("../img/" . $workshop['cer_bg']);
-      setData($con, $sql, [$sig2Path, $workshopId]);
+      $sql = "update workshops set cer_bg=? where id=?";
+      setData($con, $sql, [$cer_bgPath, $workshopId]);
     }
     if (count($res)) {
       $sql = 'update workshops set name=?, sub_office=?,with_office=?, des=?, category_id=?,
@@ -190,4 +192,4 @@ try {
   $success = 0;
 }
 ob_end_clean();
-echo json_encode([$_REQUEST, 'success' => $success, "workshop" => $result, 'error' => $error]);
+echo json_encode([$up, $_FILES, $_REQUEST, 'success' => $success, "workshop" => $result, 'error' => $error]);

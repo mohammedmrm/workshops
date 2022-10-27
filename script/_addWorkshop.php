@@ -127,7 +127,7 @@ try {
     }
     if ($sig2['size'] != 0) {
       $id = uniqid();
-      $destination = "../img/" . $id . '.' . end((explode(".", $sig1["name"])));
+      $destination = "../img/" . $id . '.' . end((explode(".", $sig2["name"])));
       $sig2Path = $id . '.' . end((explode(".", $sig2["name"])));
       move_uploaded_file($sig2["tmp_name"], $destination);
     } else {
@@ -135,7 +135,7 @@ try {
     }
     if ($cer_bg['size'] != 0) {
       $id = uniqid();
-      $destination = "../img/" . $id . '.' . end((explode(".", $sig1["name"])));
+      $destination = "../img/" . $id . '.' . end((explode(".", $cer_bg["name"])));
       $cer_bgPath = $id . '.' . end((explode(".", $cer_bg["name"])));
       move_uploaded_file($cer_bg["tmp_name"], $destination);
     } else {
