@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-//error_reporting(0);
+error_reporting(0);
 header('Content-Type: application/json');
 require_once("dbconnection.php");
 require_once("_crpt.php");
@@ -23,7 +23,7 @@ try {
   $des   = $_REQUEST['desc'];
 
   $sig1   = $_FILES['sig1'];
-  $sig1   = $_FILES['sig1'];
+  $sig2  = $_FILES['sig2'];
   $cer_bg   = $_FILES['cer_bg'];
   $name1   = $_REQUEST['name1'];
   $name2   = $_REQUEST['name2'];
@@ -128,33 +128,32 @@ try {
     $res = getData($con, $sql, [$_SESSION['userid']]);
     $sql2 = "select * from workshops where id=?";
     $workshop = getData($con, $sql, [$id])[0];
-    if ($sig1['size'] != 0) {
-      $id = uniqid();
-      mkdir("../img/", 0700);
-      $destination = "../img/" . $id . '.' . end((explode(".", $sig1["name"])));
-      $sig1Path = $id . '.' . end((explode(".", $sig1["name"])));
+    if ($sig1['size'] !== 0) {
+      $id = uniqid() . Date('Y-m-d') .
+        '-sig1' . '.' . end((explode(".", $sig1["name"])));
+      $destination = "../img/" . $id;
       $up[] = move_uploaded_file($sig1["tmp_name"], $destination);
       $sql = "update workshops set sig1=? where id=?";
       unlink("../img/" . $workshop['sig1']);
-      setData($con, $sql, [$sig1Path, $workshopId]);
+      setData($con, $sql, [$id, $workshopId]);
     }
-    if ($sig2['size'] != 0) {
-      $id = uniqid();
-      $destination = "../img/" . $id . '.' . end((explode(".", $sig2["name"])));
-      $sig2Path = $id . '.' . end((explode(".", $sig2["name"])));
+    if ($sig2['size'] !== 0) {
+      $id = uniqid() . Date('Y-m-d') .
+        '-sig2' . '.' . end((explode(".", $sig2["name"])));
+      $destination = "../img/" . $id;
       $up[] = move_uploaded_file($sig2["tmp_name"], $destination);
       $sql = "update workshops set sig2=? where id=?";
       unlink("../img/" . $workshop['sig2']);
-      setData($con, $sql, [$sig2Path, $workshopId]);
+      setData($con, $sql, [$id, $workshopId]);
     }
-    if ($cer_bg['size'] != 0) {
-      $id = uniqid();
-      $destination = "../img/" . $id . '.' . end((explode(".", $cer_bg["name"])));
-      $cer_bgPath = $id . '.' . end((explode(".", $cer_bg["name"])));
+    if ($cer_bg['size'] !== 0) {
+      $id = uniqid() . Date('Y-m-d') .
+        '-cer_bg' . '.' . end((explode(".", $cer_bg["name"])));
+      $destination = "../img/" . $id;
       $up[] = move_uploaded_file($cer_bg["tmp_name"], $destination);
       unlink("../img/" . $workshop['cer_bg']);
       $sql = "update workshops set cer_bg=? where id=?";
-      setData($con, $sql, [$cer_bgPath, $workshopId]);
+      setData($con, $sql, [$id, $workshopId]);
     }
     if (count($res)) {
       $sql = 'update workshops set name=?, sub_office=?,with_office=?, des=?, category_id=?,
@@ -192,4 +191,4 @@ try {
   $success = 0;
 }
 ob_end_clean();
-echo json_encode([$up, $_FILES, $_REQUEST, 'success' => $success, "workshop" => $result, 'error' => $error]);
+echo json_encode(['UP' => $up, $_FILES, $_REQUEST, 'success' => $success, "workshop" => $result, 'error' => $error]);

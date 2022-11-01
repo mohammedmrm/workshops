@@ -21,7 +21,7 @@ try {
   $url   = $_REQUEST['url'];
   $des   = $_REQUEST['desc'];
   $sig1   = $_FILES['sig1'];
-  $sig1   = $_FILES['sig1'];
+  $sig2   = $_FILES['sig2'];
   $cer_bg   = $_FILES['cer_bg'];
   $name1   = $_REQUEST['name1'];
   $name2   = $_REQUEST['name2'];
@@ -116,8 +116,8 @@ try {
   if ($v->passes() && $start_err == "" && $end_err == "") {
     $sql = "select * from users where id=?";
     $res = getData($con, $sql, [$_SESSION['userid']]);
-    if ($sig1['size'] != 0) {
-      $id = uniqid();
+    if ($sig1['size'] !== 0) {
+      $id = uniqid() . Date('Y-m-d') . '-sig1';
       mkdir("../img/", 0700);
       $destination = "../img/" . $id . '.' . end((explode(".", $sig1["name"])));
       $sig1Path = $id . '.' . end((explode(".", $sig1["name"])));
@@ -125,17 +125,17 @@ try {
     } else {
       $sig1Path = "_";
     }
-    if ($sig2['size'] != 0) {
-      $id = uniqid();
+    if ($sig2['size'] !== 0) {
+      $id = uniqid() . Date('Y-m-d') . '-sig2';
       $destination = "../img/" . $id . '.' . end((explode(".", $sig2["name"])));
       $sig2Path = $id . '.' . end((explode(".", $sig2["name"])));
       move_uploaded_file($sig2["tmp_name"], $destination);
     } else {
       $sig2Path = "_";
     }
-    if ($cer_bg['size'] != 0) {
-      $id = uniqid();
-      $destination = "../img/" . $id . '.' . end((explode(".", $cer_bg["name"])));
+    if ($cer_bg['size'] !== 0) {
+      $id = uniqid() . Date('Y-m-d') . '-cer_bg';
+      $destination = "../img/" . $id  . '.' . end((explode(".", $cer_bg["name"])));
       $cer_bgPath = $id . '.' . end((explode(".", $cer_bg["name"])));
       move_uploaded_file($cer_bg["tmp_name"], $destination);
     } else {

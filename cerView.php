@@ -114,8 +114,8 @@ $job1 = $data[0]['job1'] ? $data[0]['job1'] : "مساعد رئيس الجامع�
 $job2 = $data[0]['job2'] ? $data[0]['job2'] : "";
 $sig1 = $data[0]['sig1'] !== "_" ? $data[0]['sig1'] : "../assets/images/esam.png";
 $sig2 = $data[0]['sig2'] !== "_" ? $data[0]['sig2'] : "";
-$space = $data[0]['space'] > 0  ? $data[0]['sig2'] : 300;
-$paddingtop = $data[0]['space'] > 0  ? $data[0]['paddingtop'] : 150;
+$space = $data[0]['space'] > 0  ? $data[0]['space'] : 20;
+$paddingtop = $data[0]['paddingTop'] > 0  ? $data[0]['paddingTop'] : 150;
 $textSize = $data[0]['textSize'] > 0  ? $data[0]['textSize'] : 160;
 $header = '<table>
              <tr style="text-align:left;">
@@ -127,14 +127,14 @@ $header = '<table>
              </tr>
             </table>';
 $footer =
-  '<table>
+  '<table width="100%" border="1">
         <tr>
-                <td style="text-align:center;height:50px !important;" height="50">
+                <td style="text-align:center;height:50px !important;" width="' . round((100 - $space) / 2) . '%" height="50">
                   <img src = "img/' . $sig1 . '" width="150"  height="50">
                   <br /> ' . $name1 . ' <br />' . $job1 . '
                 </td>
-                <td rowspan="2" width="' . $space . '"></td>
-                <td style="text-align:center;height:50px!important;"  height="50">
+                <td  rowspan="2" width="' . $space . '%"></td>
+                <td style="text-align:center;height:50px!important;" width="' . round((100 - $space) / 2) . '%"  height="50">
                   <img src = "img/' . $sig2 . '" width="150"  height="50px"> 
                   <br /> ' . $name2 . ' <br /> ' . $job2 . '
                 </td>

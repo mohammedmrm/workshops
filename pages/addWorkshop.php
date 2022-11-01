@@ -123,7 +123,7 @@
                   </div>
                   <div class="col-sm-4">
                     <label class="form-label" for="url">المسافه بين الاسماء</label>
-                    <input type="number" class="form-control form-control-lg" name="space" id="space" />
+                    <input type="number" min="0" max="80" class="form-control form-control-lg" name="space" id="space" />
                     <span class="text-danger" id="space_err"></span>
                   </div>
                 </div>
