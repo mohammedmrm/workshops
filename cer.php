@@ -134,7 +134,7 @@ $header = '<table>
              </tr>
             </table>';
 $footer =
-  '<table width="100%" border="1">
+  '<table width="100%">
         <tr>
                 <td style="text-align:center;height:50px !important;" width="' . round((100 - $space) / 2) . '%" height="50">
                   <img src = "img/' . $sig1 . '" width="150"  height="50">
