@@ -34,7 +34,7 @@ try {
 
 
   if (empty($with)) {
-    $with = 1;
+    $with = -1;
   }
   $start   = $_REQUEST['start'] . ":00";
   $end   = $_REQUEST['end'] . ":00";
