@@ -43,7 +43,7 @@ try {
   $cat   = $_REQUEST['cat'];
   $with   = $_REQUEST['with'];
   if (empty($with)) {
-    $with = 1;
+    $with = -1;
   }
   $result = 0;
   //------------------==datetime validation-------------------------------
