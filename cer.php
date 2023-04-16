@@ -155,7 +155,7 @@ if ($data[0]['cat_id']  == 1) {
   $htmlpersian .= '<center>';
   $htmlpersian .= 'نؤيد لكم  اجتياز ' . $title . " " . $data['0']['name'] . "    " . $data[0]['cat'] . " " . $data[0]['workshop'] .
     " المقامة في " . $data['0']['office'];
-  if ($data['0']['with_office'] != -1) $htmlpersian .= " بالتعاون مع " . $data['0']['with_name'];
+  if (!empty($data['0']['with_name'])) $htmlpersian .= " بالتعاون مع " . $data['0']['with_name'];
   $htmlpersian .= " للفترة من " . $data[0]['start_date'] . " الى " . $data[0]['end_date'];
   $htmlpersian .= "</center>";
   $htmlpersian .= '</td></tr></table>';
@@ -171,7 +171,7 @@ if ($data[0]['cat_id']  == 1) {
   $htmlpersian .= '<center>';
   $htmlpersian .= 'نؤيد لكم  مشاركة ' . $title . " " . $data['0']['name'] . "  في  " . $data[0]['cat'] . "  " . $data[0]['workshop'] .
     " المقامة في " . $data['0']['office'];
-  if($data['0']['with_office'] != -1) $htmlpersian .= " بالتعاون مع " . $data['0']['with_name'];
+  if (!empty($data['0']['with_name']))  $htmlpersian .= " بالتعاون مع " . $data['0']['with_name'];
   $htmlpersian .= " بتاريخ " . $data[0]['start_date'];
   $htmlpersian .= "</center>";
   $htmlpersian .= '</td></tr></table>';
